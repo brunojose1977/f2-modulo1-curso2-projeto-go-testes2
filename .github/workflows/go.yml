@@ -24,11 +24,10 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Build-DB
-      run: docker-compose build
-      
-    - name: Create-DB
-      run: docker-compose up -d
+    - name: Build-DB and Run Containers
+      run: | 
+        docker-compose build 
+        docker-compose up -d
 
     - name: Test
       run: go test -v main_test.go 
@@ -49,5 +48,5 @@ jobs:
       with:
         go-version: ${{ matrix.go_version }}
 
-    - name: Build
+    - name: Build App
       run: go build -v main.go
